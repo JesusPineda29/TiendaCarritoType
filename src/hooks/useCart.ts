@@ -5,10 +5,11 @@
 
 import { useState, useEffect, useMemo } from "react"
 import {db} from '../data/db.js';
+import type { CartItem, Guitar, GuitarID } from "../types";
 
 export const useCart = () => {
 
-    const initialCart = () => {
+    const initialCart = () : CartItem[] => {
         const localStorageCart = localStorage.getItem('cart');
         return localStorageCart ? JSON.parse(localStorageCart) : [];
     }
@@ -23,25 +24,26 @@ export const useCart = () => {
         , [cart]);
 
 
-    const addToCart = (item) => {
+    const addToCart = (item: Guitar) => {
         const itemExist = cart.findIndex(cartItem => cartItem.id === item.id);
         if (itemExist >= 0) { // Verificar si el item ya existe en el carrito
             const updatedCart = [...cart]; // Crear una copia del carrito
             updatedCart[itemExist].quantity++; // Incrementar la cantidad del item existente
             setCart(updatedCart); // Actualizar el estado del carrito
         } else {
-            item.quantity = 1; // Asignar una cantidad inicial de 1
-            setCart([...cart, item]);
+            const newItem : CartItem = { ...item, quantity : 1 }; // Crear una copia del item
+            setCart([...cart, newItem]);
         }
     }
 
 
-    function removeFromCart(id) {
+
+    function removeFromCart(id : GuitarID) {
         setCart(prevCart => prevCart.filter(guitar => guitar.id !== id));
     }
 
 
-    function increaseQuantity(id) {
+    function increaseQuantity(id : GuitarID) {
         const updatedCart = cart.map(item => {
             if (item.id === id && item.quantity < 5) { // Limitar la cantidad máxima a 5
                 return { ...item, quantity: item.quantity + 1 };
@@ -51,7 +53,7 @@ export const useCart = () => {
         setCart(updatedCart);
     }
 
-    function decreaseQuantity(id) {
+    function decreaseQuantity(id : GuitarID) {
         const updatedCart = cart.map(item => {
             if (item.id === id && item.quantity > 0) { // Limitar la cantidad minima a 1
                 return { ...item, quantity: item.quantity - 1 };
@@ -91,6 +93,7 @@ export const useCart = () => {
         cartTotal
     }
 }
+
 
 
 

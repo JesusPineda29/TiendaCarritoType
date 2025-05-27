@@ -1,18 +1,12 @@
 
-type Guitar = {
-  id: number;
-  name: string;
-  image: string;
-  description: string;
-  price: number;
-}
+import type { Guitar } from '../types';
 
 type GuitarProps = {
   gui: Guitar;
   addToCart: (item: Guitar) => void;
 }
 
-export const Guitar = ({gui, addToCart}: GuitarProps) => {
+export const GuitarCard = ({gui, addToCart}: GuitarProps) => {
 
 const {name, image, description, price } = gui;
 

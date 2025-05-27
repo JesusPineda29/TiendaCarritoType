@@ -1,6 +1,6 @@
 import { Header } from "./components/Header"
 import { Footer } from "./components/Footer"
-import { Guitar } from "./components/Guitar"
+import { GuitarCard } from "./components/Guitar"
 import { useCart } from "./hooks/useCart"
 
 
@@ -30,7 +30,7 @@ export const App = () => {
 
                 <div className="row mt-5">
                     {data.map((guitar) => (
-                        <Guitar
+                        <GuitarCard
                             key={guitar.id}
                             gui={guitar}
                             addToCart={addToCart}
