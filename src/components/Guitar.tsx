@@ -1,8 +1,20 @@
 
+type Guitar = {
+  id: number;
+  name: string;
+  image: string;
+  description: string;
+  price: number;
+}
 
-export const Guitar = ({gui, addToCart}) => {
+type GuitarProps = {
+  gui: Guitar;
+  addToCart: (item: Guitar) => void;
+}
 
-const { id, name, image, description, price } = gui;
+export const Guitar = ({gui, addToCart}: GuitarProps) => {
+
+const {name, image, description, price } = gui;
 
 
     return (
